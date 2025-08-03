@@ -1,0 +1,128 @@
+import { useThemeColor } from "@/hooks/useThemeColor";
+import {
+  Pressable,
+  PressableProps,
+  StyleProp,
+  StyleSheet,
+  Text,
+  ViewStyle,
+} from "react-native";
+
+export default function ThemedButton({
+  label,
+  onPressed,
+  style,
+  lightColor,
+  darkColor,
+  type = "default",
+  sizeVertical = "regular",
+}: ThemedButtonProps) {
+  const colors = useThemeColor(
+    {
+      props: { light: lightColor, dark: darkColor },
+      colorName: "tint",
+    },
+    {
+      props: { light: lightColor, dark: darkColor },
+      colorName: "darkerTint",
+    },
+    {
+      colorName: "text",
+    }
+  );
+
+  const { button, buttonPressed } = getStyle(type, sizeVertical, colors);
+
+  return (
+    <Pressable style={[style]} onPress={onPressed}>
+      {({ pressed }) => {
+        return <Text style={[!pressed ? button : buttonPressed]}>{label}</Text>;
+      }}
+    </Pressable>
+  );
+}
+
+function getStyle(
+  type: ButtonType,
+  verticalSize: ButtonVerticalSize,
+  colors: string[]
+) {
+  const [tint, darkerTint, text] = colors;
+
+  const baseButton = {
+    backgroundColor: tint,
+    color: text,
+    paddingHorizontal: 10,
+    textAlign: "center" as "center" | "left",
+    minWidth: 100,
+    paddingVertical: ButtonVerticalSizeDp[verticalSize],
+  };
+
+  switch (type) {
+    case "default": {
+      return StyleSheet.create({
+        button: {
+          ...baseButton,
+        },
+        buttonPressed: {
+          ...baseButton,
+          backgroundColor: darkerTint,
+        },
+      });
+    }
+    case "ghost": {
+      return StyleSheet.create({
+        button: {
+          ...baseButton,
+          backgroundColor: "transparent",
+          color: tint,
+        },
+        buttonPressed: {
+          ...baseButton,
+          backgroundColor: "transparent",
+          color: darkerTint,
+        },
+      });
+    }
+
+    case "outline": {
+      return StyleSheet.create({
+        button: {
+          ...baseButton,
+          backgroundColor: "transparent",
+          color: tint,
+          borderWidth: 2,
+          borderColor: tint,
+        },
+        buttonPressed: {
+          ...baseButton,
+          backgroundColor: "transparent",
+          color: darkerTint,
+          borderWidth: 2,
+          borderColor: darkerTint,
+        },
+      });
+    }
+  }
+}
+
+const ButtonTypes = ["default", "outline", "ghost"] as const;
+type ButtonType = (typeof ButtonTypes)[number];
+
+const ButtonVerticalSizes = ["regular", "thick"] as const;
+type ButtonVerticalSize = (typeof ButtonVerticalSizes)[number];
+
+const ButtonVerticalSizeDp: Record<ButtonVerticalSize, number> = {
+  regular: 10,
+  thick: 14,
+};
+
+export type ThemedButtonProps = PressableProps & {
+  label: string;
+  style: StyleProp<ViewStyle>;
+  onPressed: () => void;
+  lightColor?: string;
+  darkColor?: string;
+  type?: ButtonType;
+  sizeVertical?: ButtonVerticalSize;
+};
