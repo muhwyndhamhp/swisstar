@@ -9,24 +9,11 @@ export default function Home() {
   return (
     <SafeAreaView>
       <ThemedView style={styles.container}>
-        <ThemedText style={styles.flexItem}>Hello world</ThemedText>
-        <ThemedButton
-          sizeVertical="thick"
-          label={"Button"}
-          style={styles.flexItem}
-          onPressed={toNothing}
-        />
-        <ThemedButton
-          sizeVertical="thick"
-          type="ghost"
-          label={"Button"}
-          style={styles.flexItem}
-          onPressed={toNothing}
-        />
+        <ThemedText style={styles.headingItem}>⼑SwisStar</ThemedText>
         <ThemedButton
           sizeVertical="thick"
           type="outline"
-          label={"Button"}
+          label={"QR Scanner"}
           style={styles.flexItem}
           onPressed={toNothing}
         />
@@ -47,5 +34,11 @@ const styles = StyleSheet.create({
   },
   flexItem: {
     width: "100%",
+  },
+  headingItem: {
+    lineHeight: 50,
+    width: "100%",
+    fontSize: 36,
+    textAlign: 'center'
   },
 });

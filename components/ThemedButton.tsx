@@ -1,4 +1,9 @@
+import { Colors } from "@/constants/Colors";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import {
+  FontAwesome6,
+  FontAwesome6IconName,
+} from "@react-native-vector-icons/fontawesome6";
 import {
   Pressable,
   PressableProps,
@@ -14,6 +19,7 @@ export default function ThemedButton({
   style,
   lightColor,
   darkColor,
+  iconType,
   type = "default",
   sizeVertical = "regular",
 }: ThemedButtonProps) {
@@ -36,7 +42,18 @@ export default function ThemedButton({
   return (
     <Pressable style={[style]} onPress={onPressed}>
       {({ pressed }) => {
-        return <Text style={[!pressed ? button : buttonPressed]}>{label}</Text>;
+        return (
+          <>
+            {iconType && (
+              <FontAwesome6
+                name={iconType}
+                size={30}
+                color={Colors.light.text}
+              />
+            )}
+            <Text style={[!pressed ? button : buttonPressed]}>{label}</Text>
+          </>
+        );
       }}
     </Pressable>
   );
@@ -125,4 +142,5 @@ export type ThemedButtonProps = PressableProps & {
   darkColor?: string;
   type?: ButtonType;
   sizeVertical?: ButtonVerticalSize;
+  iconType?: FontAwesome6IconName;
 };
