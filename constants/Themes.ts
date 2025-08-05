@@ -1,5 +1,5 @@
-import { DarkTheme, DefaultTheme } from "@react-navigation/native";
-import { Colors } from "./Colors";
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { Colors } from './Colors';
 
 export const StarDark = {
   ...DarkTheme,
@@ -13,7 +13,6 @@ export const StarDark = {
     notification: Colors.dark.tint,
   },
 };
-
 
 export const StarLight = {
   ...DefaultTheme,

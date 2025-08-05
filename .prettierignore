@@ -1,0 +1,10 @@
+node_modules/
+android/
+ios/
+.webpack/
+.expo/
+.nyc_output/
+coverage/
+.git/
+*.min.js
+*.min.css

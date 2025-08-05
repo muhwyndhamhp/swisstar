@@ -35,6 +35,14 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow SwisStar to access your camera",
+          "microphonePermission": "Allow SwisStar to access your microphone",
+          "recordAudioAndroid": false
+        }
       ]
     ],
     "experiments": {

@@ -1,5 +1,10 @@
-import { Redirect } from "expo-router";
+import { Redirect, Stack } from 'expo-router';
 
 export default function Index() {
-  return <Redirect href={"/home"} />;
+  return (
+    <>
+      <Stack.Screen options={{ headerShown: false }} />
+      <Redirect href={'/home'} />
+    </>
+  );
 }
